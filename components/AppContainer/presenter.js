@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, Text, StatusBar, StyleSheet } from "react-native";
+import LoggedOutNavigation from "../../navigation/LoggedOutNavigation";
 
 class AppContainer extends Component {
     static propTypes = {
@@ -15,7 +16,7 @@ class AppContainer extends Component {
                 {isLoggedIn ? (
                     <Text>You're logged in</Text>
                 ) : (
-                    <Text>I don't know you</Text>
+                    <LoggedOutNavigation />
                 )}
             </View>);
     }
