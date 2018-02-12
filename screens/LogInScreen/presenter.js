@@ -7,9 +7,11 @@ import {
     Dimensions,
     TouchableOpacity,
     TextInput,
-    StatusBar
+    StatusBar,
+    ActivityIndicator
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,18 +31,30 @@ const LogInScreen = props => {
                     placeholder="Username"
                     style={styles.textInput}
                     autoCapitalize={"none"}
+                    underlineColorAndroid="transparent"
                     autoCorrect={false}
+                    value={props.username}
+                    onChangeText={props.changeUsername}
                 />
                 <TextInput
                     placeholder="Password"
                     style={styles.textInput}
                     autoCapitalize={"none"}
+                    underlineColorAndroid="transparent"
                     autoCorrect={false}
                     secureTextEntry={true}
+                    value={props.password}
+                    onChangeText={props.changePassword}
+                    returnKeyType={"send"}
+                    onEndEditing={props.submit}
                 />
-                <TouchableOpacity style={styles.touchable}>
+                <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText}>Login</Text>
+                        {props.isSubmitting ? (
+                            <ActivityIndicator size="small" color="white" />
+                        ) : (
+                            <Text style={styles.buttonText}>Log in</Text>
+                        )}
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.fbContainer}>
@@ -52,6 +66,15 @@ const LogInScreen = props => {
             </View>
         </View>
     );
+}
+
+LogInScreen.propTypes = {
+    isSubmitting: PropTypes.bool.isRequired,
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    changeUsername: PropTypes.func.isRequired,
+    changePassword: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -104,7 +127,8 @@ const styles = StyleSheet.create({
     touchable: {
         borderRadius: 5,
         backgroundColor: "#3e99ee",
-        width: width - 80
+        width: width - 80,
+        marginTop: 20
     },
     button: {
         paddingHorizontal: 7,
@@ -117,6 +141,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 15
     },
-})
+});
+
 
 export default LogInScreen;
