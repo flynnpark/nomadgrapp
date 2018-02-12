@@ -25,11 +25,22 @@ const LogInScreen = props => {
                 />
             </View>
             <View style={styles.content}>
-                <TextInput placeholder="Username" />
-                <TextInput placeholder="Password" />
-                <TouchableOpacity>
-                    <View>
-                        <Text>Login</Text>
+                <TextInput
+                    placeholder="Username"
+                    style={styles.textInput}
+                    autoCapitalize={"none"}
+                    autoCorrect={false}
+                />
+                <TextInput
+                    placeholder="Password"
+                    style={styles.textInput}
+                    autoCapitalize={"none"}
+                    autoCorrect={false}
+                    secureTextEntry={true}
+                />
+                <TouchableOpacity style={styles.touchable}>
+                    <View style={styles.button}>
+                        <Text style={styles.buttonText}>Login</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.fbContainer}>
@@ -62,7 +73,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 4,
         backgroundColor: "#fff",
-        paddingTop: 20,
+        paddingTop: 50,
         alignItems: "center",
         justifyContent: "flex-start"
     },
@@ -78,7 +89,34 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontWeight: "600",
         fontSize: 14
-    }
+    },
+    textInput: {
+        height: 50,
+        borderColor: "#bbb",
+        borderWidth: 1,
+        width: width - 80,
+        borderRadius: 8,
+        marginBottom: 15,
+        paddingHorizontal: 15,
+        backgroundColor: "#fafafa",
+        fontSize: 15
+    },
+    touchable: {
+        borderRadius: 5,
+        backgroundColor: "#3e99ee",
+        width: width - 80
+    },
+    button: {
+        paddingHorizontal: 7,
+        height: 50,
+        justifyContent: "center"
+    },
+    buttonText: {
+        color: "#fff",
+        fontWeight: "600",
+        textAlign: "center",
+        fontSize: 15
+    },
 })
 
 export default LogInScreen;
