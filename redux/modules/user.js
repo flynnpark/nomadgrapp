@@ -1,10 +1,35 @@
 // Imports
 
 import { API_URL } from "../../constants";
+import { AsyncStorage } from "react-native";
 
 // Actions
 
+const LOG_IN = "LOG_IN";
+const LOG_OUT = "LOG_OUT";
+const SET_USER = "SET_USER";
+
 // Action Creators
+
+function setLogIn(token) {
+    return {
+        type: LOG_IN,
+        token
+    };
+}
+
+function setLogOut() {
+    return {
+        type: LOG_OUT
+    };
+}
+
+function setUser(user) {
+    return {
+        type: SET_USER,
+        user
+    };
+}
 
 // API Actions
 
@@ -21,7 +46,14 @@ function login(username, password) {
             })
         })
         .then(response => response.json())
-        .then(json => console.log(json));
+        .then(json => {
+            if (json.token) {
+                dispatch(setLogIn(json.token));
+            }
+            if (json.user) {
+                dispatch(setUser(json.user));
+            }
+        });
     };
 }
 
@@ -35,12 +67,44 @@ const initialState = {
 
 function reducer(state = initialState, action) {
     switch (action.type) {
+        case LOG_IN:
+            return applyLogIn(state, action);
+        case LOG_OUT:
+            return applyLogOut(state, action);
+        case SET_USER:
+            return applySetUser(state, action);
         default:
             return state;
     }
 }
 
 // Reducer functions
+
+function applyLogIn(state, action) {
+    const { token } = action;
+    return {
+        ...state,
+        isLoggedIn: true,
+        token
+    };
+}
+
+function applyLogOut(state, action) {
+    AsyncStorage.clear();
+    return {
+        ...state,
+        isLoggedIn: false,
+        token: ""
+    };
+}
+
+function applySetUser(state, action) {
+    const { user } = action;
+    return {
+        ...state,
+        profile: user
+    };
+}
 
 // Exports
 
