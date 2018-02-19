@@ -1,15 +1,15 @@
-import React from "react";
-import { AppLoading, Asset, Font } from "expo";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/es/integration/react";
-import configureStore from "./redux/configureStore";
-import AppContainer from "./components/AppContainer";
+import React from 'react';
+import { AppLoading, Asset, Font } from 'expo';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import configureStore from './redux/configureStore';
+import AppContainer from './components/AppContainer';
 
 const { persistor, store } = configureStore();
 
-store.dispatch({ type: "LOG_OUT" });
+store.dispatch({ type: 'LOG_OUT' });
 
 class App extends React.Component {
     state = {
@@ -33,34 +33,30 @@ class App extends React.Component {
                     <AppContainer />
                 </PersistGate>
             </Provider>
-
         );
     }
 
-    _loadAssetsAsync = async() => {
+    _loadAssetsAsync = async () => {
         return Promise.all([
             Asset.loadAsync([
-                require("./assets/images/logo.png"),
-                require("./assets/images/logo-white.png"),
-                require("./assets/images/noPhoto.jpg"),
-                require("./assets/images/photoPlaceholder.png")
+                require('./assets/images/logo.png'),
+                require('./assets/images/logo-white.png'),
+                require('./assets/images/noPhoto.jpg'),
+                require('./assets/images/photoPlaceholder.png')
             ]),
-            Font.loadAsync([
-                ...Ionicons.font,
-                ...MaterialIcons.font
-            ])
+            Font.loadAsync([...Ionicons.font, ...MaterialIcons.font])
         ]);
-    }
+    };
 
     _handleLoadingError = error => {
         console.log(error);
-    }
+    };
 
-    _handleFinishLoading = async() => {
+    _handleFinishLoading = async () => {
         this.setState({
             isLoadingComplete: true
         });
-    }
+    };
 }
 
 export default App;
