@@ -1,13 +1,13 @@
 // Imports
 
-import { API_URL } from "../../constants";
-import { AsyncStorage } from "react-native";
+import { API_URL } from '../../constants';
+import { AsyncStorage } from 'react-native';
 
 // Actions
 
-const LOG_IN = "LOG_IN";
-const LOG_OUT = "LOG_OUT";
-const SET_USER = "SET_USER";
+const LOG_IN = 'LOG_IN';
+const LOG_OUT = 'LOG_OUT';
+const SET_USER = 'SET_USER';
 
 // Action Creators
 
@@ -35,25 +35,26 @@ function setUser(user) {
 
 function login(username, password) {
     return dispatch => {
-        fetch(`${API_URL}/rest-auth/login/`, {
-            method: "POST",
+        return fetch(`${API_URL}/rest-auth/login/`, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 username,
                 password
             })
         })
-        .then(response => response.json())
-        .then(json => {
-            if (json.token) {
-                dispatch(setLogIn(json.token));
-            }
-            if (json.user) {
-                dispatch(setUser(json.user));
-            }
-        });
+            .then(response => response.json())
+            .then(json => {
+                if (json.user && json.token) {
+                    dispatch(setLogIn(json.token));
+                    dispatch(setUser(json.user));
+                    return true;
+                } else {
+                    return false;
+                }
+            });
     };
 }
 
@@ -94,7 +95,7 @@ function applyLogOut(state, action) {
     return {
         ...state,
         isLoggedIn: false,
-        token: ""
+        token: ''
     };
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     View,
     Text,
@@ -9,19 +9,19 @@ import {
     TextInput,
     StatusBar,
     ActivityIndicator
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import PropTypes from "prop-types";
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 
 const LogInScreen = props => {
     return (
         <View style={styles.container}>
-            <StatusBar barStyle={"light-content"} />
+            <StatusBar barStyle={'light-content'} />
             <View style={styles.header}>
                 <Image
-                    source={require("../../assets/images/logo-white.png")}
+                    source={require('../../assets/images/logo-white.png')}
                     resizeMode="stretch"
                     style={styles.logo}
                 />
@@ -30,7 +30,7 @@ const LogInScreen = props => {
                 <TextInput
                     placeholder="Username"
                     style={styles.textInput}
-                    autoCapitalize={"none"}
+                    autoCapitalize={'none'}
                     underlineColorAndroid="transparent"
                     autoCorrect={false}
                     value={props.username}
@@ -39,16 +39,19 @@ const LogInScreen = props => {
                 <TextInput
                     placeholder="Password"
                     style={styles.textInput}
-                    autoCapitalize={"none"}
+                    autoCapitalize={'none'}
                     underlineColorAndroid="transparent"
                     autoCorrect={false}
                     secureTextEntry={true}
                     value={props.password}
                     onChangeText={props.changePassword}
-                    returnKeyType={"send"}
-                    onEndEditing={props.submit}
+                    returnKeyType={'send'}
+                    onSubmitEditing={props.submit}
                 />
-                <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
+                <TouchableOpacity
+                    style={styles.touchable}
+                    onPressOut={props.submit}
+                >
                     <View style={styles.button}>
                         {props.isSubmitting ? (
                             <ActivityIndicator size="small" color="white" />
@@ -59,14 +62,18 @@ const LogInScreen = props => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.fbContainer}>
                     <View style={styles.fbView}>
-                        <Ionicons name="logo-facebook" size={22} color="#3e99ee" />
+                        <Ionicons
+                            name="logo-facebook"
+                            size={22}
+                            color="#3e99ee"
+                        />
                         <Text style={styles.fbText}>Log in with Facebook</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
     );
-}
+};
 
 LogInScreen.propTypes = {
     isSubmitting: PropTypes.bool.isRequired,
@@ -75,17 +82,17 @@ LogInScreen.propTypes = {
     changeUsername: PropTypes.func.isRequired,
     changePassword: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    header : {
+    header: {
         flex: 1,
-        backgroundColor: "#4e65b4",
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundColor: '#4e65b4',
+        alignItems: 'center',
+        justifyContent: 'center',
         width
     },
     logo: {
@@ -95,53 +102,52 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 4,
-        backgroundColor: "#fff",
+        backgroundColor: '#fff',
         paddingTop: 50,
-        alignItems: "center",
-        justifyContent: "flex-start"
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     fbContainer: {
         marginTop: 50
     },
     fbView: {
-        flexDirection: "row",
-        alignItems: "center"
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     fbText: {
-        color: "#3e99ee",
+        color: '#3e99ee',
         marginLeft: 10,
-        fontWeight: "600",
+        fontWeight: '600',
         fontSize: 14
     },
     textInput: {
         height: 50,
-        borderColor: "#bbb",
+        borderColor: '#bbb',
         borderWidth: 1,
         width: width - 80,
         borderRadius: 8,
         marginBottom: 15,
         paddingHorizontal: 15,
-        backgroundColor: "#fafafa",
+        backgroundColor: '#fafafa',
         fontSize: 15
     },
     touchable: {
         borderRadius: 5,
-        backgroundColor: "#3e99ee",
+        backgroundColor: '#3e99ee',
         width: width - 80,
         marginTop: 25
     },
     button: {
         paddingHorizontal: 7,
         height: 50,
-        justifyContent: "center"
+        justifyContent: 'center'
     },
     buttonText: {
-        color: "#fff",
-        fontWeight: "600",
-        textAlign: "center",
+        color: '#fff',
+        fontWeight: '600',
+        textAlign: 'center',
         fontSize: 15
-    },
+    }
 });
-
 
 export default LogInScreen;

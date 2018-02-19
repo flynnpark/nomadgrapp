@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Alert } from "react-native";
-import LogInScreen from "./presenter";
+import React, { Component } from 'react';
+import { Alert } from 'react-native';
+import LogInScreen from './presenter';
 
 class Container extends Component {
     state = {
-        username: "",
-        password: "",
+        username: '',
+        password: '',
         isSubmitting: false
     };
 
@@ -20,19 +20,19 @@ class Container extends Component {
         );
     }
 
-    _changeUsername = (text) => {
+    _changeUsername = text => {
         this.setState({
             username: text
         });
-    }
+    };
 
-    _changePassword = (text) => {
+    _changePassword = text => {
         this.setState({
             password: text
         });
-    }
+    };
 
-    _submit = () => {
+    _submit = async () => {
         const { username, password, isSubmitting } = this.state;
         const { login } = this.props;
         if (!isSubmitting) {
@@ -40,12 +40,18 @@ class Container extends Component {
                 this.setState({
                     isSubmitting: true
                 });
-                login(username, password);
+                const loginResult = await login(username, password);
+                if (!loginResult) {
+                    Alert.alert('Something went wrong, try again');
+                    this.setState({
+                        isSubmitting: false
+                    });
+                }
             } else {
                 Alert.alert('All fields are required');
             }
         }
-    }
+    };
 }
 
 export default Container;
