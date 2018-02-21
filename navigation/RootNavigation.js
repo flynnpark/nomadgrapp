@@ -10,7 +10,7 @@ const RootNavigation = StackNavigator(
                 header: null
             }
         },
-        TakePhotoScreen: {
+        TakePhoto: {
             screen: TakePhotoScreen,
             navigationOptions: {
                 header: null
