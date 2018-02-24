@@ -9,6 +9,7 @@ import { Facebook } from 'expo';
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
 const SET_USER = 'SET_USER';
+const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 
 // Action Creators
 
@@ -19,16 +20,23 @@ function setLogIn(token) {
     };
 }
 
+function setUser(user) {
+    return {
+        type: SET_USER,
+        user
+    };
+}
+
 function logOut() {
     return {
         type: LOG_OUT
     };
 }
 
-function setUser(user) {
+function setNotifications(notifications) {
     return {
-        type: SET_USER,
-        user
+        type: SET_NOTIFICATIONS,
+        notifications
     };
 }
 
@@ -91,6 +99,44 @@ function facebookLogin() {
     };
 }
 
+function getNotifications() {
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        fetch(`${API_URL}/notifications/`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(userActions.logOut());
+                } else {
+                    return response.json();
+                }
+            })
+            .then(json => dispatch(setNotifications(json)));
+    };
+}
+
+function getOwnProfile() {
+    return (dispatch, getState) => {
+        const { user: { token, profile: { username } } } = getState();
+        fetch(`${API_URL}/users/${username}`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(userActions.logOut());
+                } else {
+                    return response.json();
+                }
+            })
+            .then(json => dispatch(setUser(json)));
+    };
+}
+
 // Initial State
 
 const initialState = {
@@ -103,10 +149,12 @@ function reducer(state = initialState, action) {
     switch (action.type) {
         case LOG_IN:
             return applyLogIn(state, action);
-        case LOG_OUT:
-            return applyLogOut(state, action);
         case SET_USER:
             return applySetUser(state, action);
+        case LOG_OUT:
+            return applyLogOut(state, action);
+        case SET_NOTIFICATIONS:
+            return applySetNotifications(state, action);
         default:
             return state;
     }
@@ -123,6 +171,14 @@ function applyLogIn(state, action) {
     };
 }
 
+function applySetUser(state, action) {
+    const { user } = action;
+    return {
+        ...state,
+        profile: user
+    };
+}
+
 function applyLogOut(state, action) {
     AsyncStorage.clear();
     return {
@@ -132,11 +188,11 @@ function applyLogOut(state, action) {
     };
 }
 
-function applySetUser(state, action) {
-    const { user } = action;
+function applySetNotifications(state, action) {
+    const { notifications } = action;
     return {
         ...state,
-        profile: user
+        notifications
     };
 }
 
@@ -145,7 +201,9 @@ function applySetUser(state, action) {
 const actionCreators = {
     login,
     facebookLogin,
-    logOut
+    logOut,
+    getNotifications,
+    getOwnProfile
 };
 
 export { actionCreators };
