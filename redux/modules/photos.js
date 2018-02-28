@@ -64,6 +64,25 @@ function getSearch() {
     };
 }
 
+function searchByHashtag(hashtag) {
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        fetch(`${API_URL}/images/search/?hashtags=${hashtag}`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(userActions.logOut());
+                } else {
+                    return response.json();
+                }
+            })
+            .then(json => dispatch(setSearch(json)));
+    };
+}
+
 function likePhoto(photoId) {
     return (diaptch, getState) => {
         const { user: { token } } = getState();
@@ -145,7 +164,8 @@ const actionCreators = {
     getFeed,
     getSearch,
     likePhoto,
-    unlikePhoto
+    unlikePhoto,
+    searchByHashtag
 };
 
 export { actionCreators };
