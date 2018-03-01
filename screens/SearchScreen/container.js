@@ -14,7 +14,7 @@ class Container extends Component {
     };
 
     static propTypes = {
-        getEmptyFeed: PropTypes.func.isRequired,
+        getEmptySearch: PropTypes.func.isRequired,
         searchByHashtag: PropTypes.func.isRequired,
         search: PropTypes.array
     };
@@ -51,19 +51,23 @@ class Container extends Component {
 
     _submitSearch = text => {
         const { searchingBy } = this.state;
-        const { searchByHashtag } = this.props;
+        const { searchByHashtag, getEmptySearch } = this.props;
+        if (text === '') {
+            getEmptySearch();
+        } else {
+            searchByHashtag(text.toLowerCase());
+        }
         this.setState({
             searchingBy: text,
             isFetching: true
         });
-        searchByHashtag(text.toLowerCase());
     };
 
     _refresh = () => {
         const { searchingBy } = this.state;
-        const { getEmptyFeed, searchByHashtag } = this.props;
+        const { getEmptySearch, searchByHashtag } = this.props;
         if (searchingBy === '') {
-            getEmptyFeed();
+            getEmptySearch();
         } else {
             searchByHashtag(searchingBy);
         }
