@@ -121,7 +121,7 @@ function getNotifications() {
 function getOwnProfile() {
     return (dispatch, getState) => {
         const { user: { token, profile: { username } } } = getState();
-        fetch(`${API_URL}/users/${username}`, {
+        fetch(`${API_URL}/users/${username}/`, {
             headers: {
                 Authorization: `JWT ${token}`
             }
