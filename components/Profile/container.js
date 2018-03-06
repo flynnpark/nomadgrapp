@@ -38,7 +38,7 @@ class Container extends Component {
                 {...this.props}
                 {...this.state}
                 changeToGrid={this._changeToGrid}
-                changeToGrid={this._changeToGrid}
+                changeToList={this._changeToList}
             />
         );
     }
