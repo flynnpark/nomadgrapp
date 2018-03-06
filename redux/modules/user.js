@@ -137,6 +137,25 @@ function getOwnProfile() {
     };
 }
 
+function getProfile(username) {
+    return (dispatch, getState) => {
+        const { user: { token } } = getState();
+        return fetch(`${API_URL}/users/${username}/`, {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(userActions.logOut());
+                } else {
+                    return response.json();
+                }
+            })
+            .then(json => json);
+    };
+}
+
 function followUser(userId) {
     return (dispatch, getState) => {
         const { user: { token } } = getState();
@@ -244,6 +263,7 @@ const actionCreators = {
     logOut,
     getNotifications,
     getOwnProfile,
+    getProfile,
     followUser,
     unfollowUser
 };

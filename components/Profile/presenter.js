@@ -25,8 +25,8 @@ const Profile = props => (
                 <RefreshControl
                     refreshing={props.isFetching}
                     onRefresh={props.getProfile}
-                    tintColor={'black'}
-                    titleColor={'black'}
+                    tintColor={'#000'}
+                    titleColor={'#000'}
                 />
             }
         >
@@ -65,8 +65,8 @@ const Profile = props => (
                                 <View
                                     style={[
                                         styles.button,
-                                        { backgroundColor: 'white' },
-                                        { borderColor: 'black' },
+                                        { backgroundColor: '#fff' },
+                                        { borderColor: '#000' },
                                         {
                                             borderWidth:
                                                 StyleSheet.hairlineWidth
@@ -74,10 +74,7 @@ const Profile = props => (
                                     ]}
                                 >
                                     <Text
-                                        style={[
-                                            styles.text,
-                                            { color: 'black' }
-                                        ]}
+                                        style={[styles.text, { color: '#000' }]}
                                     >
                                         Edit profile
                                     </Text>
@@ -92,10 +89,7 @@ const Profile = props => (
                                     ]}
                                 >
                                     <Text
-                                        style={[
-                                            styles.text,
-                                            { color: 'black' }
-                                        ]}
+                                        style={[styles.text, { color: '#fff' }]}
                                     >
                                         {props.profileObject.following
                                             ? 'Unfollow'
@@ -122,7 +116,7 @@ const Profile = props => (
                                 name={'ios-grid-outline'}
                                 size={30}
                                 color={
-                                    props.mode === 'grid' ? '#3e99ee' : 'black'
+                                    props.mode === 'grid' ? '#3e99ee' : '#000'
                                 }
                             />
                         </View>
@@ -133,7 +127,7 @@ const Profile = props => (
                                 name={'ios-list'}
                                 size={38}
                                 color={
-                                    props.mode === 'list' ? '#3e99ee' : 'black'
+                                    props.mode === 'list' ? '#3e99ee' : '#000'
                                 }
                             />
                         </View>
@@ -163,7 +157,10 @@ const Profile = props => (
 );
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: 'white' },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff'
+    },
     header: {
         flexDirection: 'row',
         marginTop: 15,
@@ -239,8 +236,8 @@ Profile.propTypes = {
         bio: PropTypes.string,
         followers_count: PropTypes.number,
         following_count: PropTypes.number,
-        following: PropTypes.bool.isRequired,
-        is_self: PropTypes.bool.isRequired,
+        following: PropTypes.bool,
+        is_self: PropTypes.bool,
         images: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.number.isRequired,
