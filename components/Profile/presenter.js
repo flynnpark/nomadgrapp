@@ -32,7 +32,7 @@ const Profile = props => (
         >
             <View style={styles.profile}>
                 <View style={styles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPressOut={props.showActionSheet}>
                         <Image
                             source={
                                 props.profileObject.profile_image
@@ -272,7 +272,8 @@ Profile.propTypes = {
     }),
     mode: PropTypes.oneOf(['grid', 'list']),
     changeToGrid: PropTypes.func.isRequired,
-    changeToList: PropTypes.func.isRequired
+    changeToList: PropTypes.func.isRequired,
+    showActionSheet: PropTypes.func.isRequired
 };
 
 export default Profile;
