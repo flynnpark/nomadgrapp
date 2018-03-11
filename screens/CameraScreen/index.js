@@ -39,7 +39,7 @@ class CameraScreen extends Component {
                         ref={camera => (this.camera = camera)}
                         style={styles.camera}
                     >
-                        <TouchableOpacity>
+                        <TouchableOpacity onPressOut={this._changeType}>
                             <View style={styles.action}>
                                 <MaterialIcons
                                     name={
@@ -52,6 +52,31 @@ class CameraScreen extends Component {
                                 />
                             </View>
                         </TouchableOpacity>
+                        <TouchableOpacity onPressOut={this._changeFlash}>
+                            <View style={styles.action}>
+                                {flash === Camera.Constants.FlashMode.off && (
+                                    <MaterialIcons
+                                        name={'flash-off'}
+                                        color="white"
+                                        size={40}
+                                    />
+                                )}
+                                {flash === Camera.Constants.FlashMode.on && (
+                                    <MaterialIcons
+                                        name={'flash-on'}
+                                        color="white"
+                                        size={40}
+                                    />
+                                )}
+                                {flash === Camera.Constants.FlashMode.auto && (
+                                    <MaterialIcons
+                                        name={'flash-auto'}
+                                        color="white"
+                                        size={40}
+                                    />
+                                )}
+                            </View>
+                        </TouchableOpacity>
                     </Camera>
                     <View style={styles.btnContainer}>
                         <TouchableOpacity>
@@ -62,6 +87,28 @@ class CameraScreen extends Component {
             );
         }
     }
+
+    _changeType = () => {
+        this.setState(prevState => {
+            if (prevState.type == Camera.Constants.Type.back) {
+                return { type: Camera.Constants.Type.front };
+            } else {
+                return { type: Camera.Constants.Type.back };
+            }
+        });
+    };
+
+    _changeFlash = () => {
+        this.setState(prevState => {
+            if (prevState.flash === Camera.Constants.FlashMode.off) {
+                return { flash: Camera.Constants.FlashMode.on };
+            } else if (prevState.flash === Camera.Constants.FlashMode.on) {
+                return { flash: Camera.Constants.FlashMode.auto };
+            } else if (prevState.flash === Camera.Constants.FlashMode.auto) {
+                return { flash: Camera.Constants.FlashMode.off };
+            }
+        });
+    };
 }
 
 const styles = StyleSheet.create({
