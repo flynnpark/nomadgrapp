@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     Image,
-    CameraRoll
+    CameraRoll,
+    StatusBar
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Camera, Permissions } from 'expo';
@@ -40,6 +41,7 @@ class CameraScreen extends Component {
         } else {
             return (
                 <View style={styles.container}>
+                    <StatusBar hidden={true} />
                     {pictureTaken ? (
                         <View style={{ flex: 2 }}>
                             <FitImage
@@ -71,28 +73,28 @@ class CameraScreen extends Component {
                                 <View style={styles.action}>
                                     {flash ===
                                         Camera.Constants.FlashMode.off && (
-                                            <MaterialIcons
-                                                name={'flash-off'}
-                                                color="white"
-                                                size={40}
-                                            />
-                                        )}
+                                        <MaterialIcons
+                                            name={'flash-off'}
+                                            color="white"
+                                            size={40}
+                                        />
+                                    )}
                                     {flash ===
                                         Camera.Constants.FlashMode.on && (
-                                            <MaterialIcons
-                                                name={'flash-on'}
-                                                color="white"
-                                                size={40}
-                                            />
-                                        )}
+                                        <MaterialIcons
+                                            name={'flash-on'}
+                                            color="white"
+                                            size={40}
+                                        />
+                                    )}
                                     {flash ===
                                         Camera.Constants.FlashMode.auto && (
-                                            <MaterialIcons
-                                                name={'flash-auto'}
-                                                color="white"
-                                                size={40}
-                                            />
-                                        )}
+                                        <MaterialIcons
+                                            name={'flash-auto'}
+                                            color="white"
+                                            size={40}
+                                        />
+                                    )}
                                 </View>
                             </TouchableOpacity>
                         </Camera>
@@ -178,7 +180,9 @@ class CameraScreen extends Component {
 
     _approvePhoto = async () => {
         const { picture } = this.state;
+        const { navigation: { navigate } } = this.props;
         const saveResult = await CameraRoll.saveToCameraRoll(picture, 'photo');
+        navigate('UploadPhoto', { url: picture });
         this.setState({
             picture: null,
             pictureTaken: false
