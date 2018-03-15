@@ -42,7 +42,7 @@ class Container extends Component {
         });
     };
 
-    _submit = () => {
+    _submit = async () => {
         const { caption, location, tags } = this.state;
         const {
             submit,
@@ -53,7 +53,7 @@ class Container extends Component {
             this.setState({
                 isSubmitting: true
             });
-            const uploadResult = submit(url, caption, location, tags);
+            const uploadResult = await submit(url, caption, location, tags);
             if (uploadResult) {
                 navigation.goBack(null);
                 navigation.goBack(null);
