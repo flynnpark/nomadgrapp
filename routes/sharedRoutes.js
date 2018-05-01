@@ -6,38 +6,36 @@ import PhotoScreen from '../screens/PhotoScreen';
 import NavButton from '../components/NavButton';
 
 const sharedRoutes = {
-    Likes: {
-        screen: LikesScreen,
-        navigationOptions: {
-            headerTitle: 'Likes'
-        }
-    },
-    Comments: {
-        screen: CommentsScreen,
-        navigationOptions: {
-            headerTitle: 'Comments'
-        }
-    },
-    ProfileDetail: {
-        screen: ProfileDetailScreen
-    },
-    Photo: {
-        screen: PhotoScreen,
-        navigationOptions: {
-            headerTitle: 'Photo'
-        }
+  Likes: {
+    screen: LikesScreen,
+    navigationOptions: {
+      headerTitle: 'Likes'
     }
+  },
+  Comments: {
+    screen: CommentsScreen,
+    navigationOptions: {
+      headerTitle: 'Comments'
+    }
+  },
+  ProfileDetail: {
+    screen: ProfileDetailScreen
+  },
+  Photo: {
+    screen: PhotoScreen,
+    navigationOptions: {
+      headerTitle: 'Photo'
+    }
+  }
 };
 
 const sharedOptions = {
-    navigationOptions: {
-        headerLeft: props => (
-            <NavButton iconName={'ios-arrow-back'} {...props} />
-        ),
-        headerStyle: {
-            backgroundColor: '#fbfbfb'
-        }
+  navigationOptions: {
+    headerLeft: props => <NavButton iconName={'ios-arrow-back'} {...props} />,
+    headerStyle: {
+      backgroundColor: '#fbfbfb'
     }
+  }
 };
 
 export { sharedOptions };

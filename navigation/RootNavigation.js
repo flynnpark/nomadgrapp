@@ -7,36 +7,36 @@ import UploadPhotoScreen from '../screens/UploadPhotoScreen';
 import AddPhotoNavigation from './AddPhotoNavigation';
 
 const RootNavigation = StackNavigator(
-    {
-        Tabs: {
-            screen: TabsNavigation,
-            navigationOptions: {
-                header: null
-            }
-        },
-        TakePhoto: {
-            screen: AddPhotoNavigation,
-            navigationOptions: {
-                header: null
-            }
-        },
-        UploadPhoto: {
-            screen: UploadPhotoScreen,
-            navigationOptions: ({ navigation }) => ({
-                title: 'Upload Photo',
-                headerLeft: (
-                    <Button
-                        title="Cancel"
-                        color="#000"
-                        onPress={() => navigation.goBack(null)}
-                    />
-                )
-            })
-        }
+  {
+    Tabs: {
+      screen: TabsNavigation,
+      navigationOptions: {
+        header: null
+      }
     },
-    {
-        mode: 'modal'
+    TakePhoto: {
+      screen: AddPhotoNavigation,
+      navigationOptions: {
+        header: null
+      }
+    },
+    UploadPhoto: {
+      screen: UploadPhotoScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Upload Photo',
+        headerLeft: (
+          <Button
+            title="Cancel"
+            color="#000"
+            onPress={() => navigation.goBack(null)}
+          />
+        )
+      })
     }
+  },
+  {
+    mode: 'modal'
+  }
 );
 
 export default RootNavigation;

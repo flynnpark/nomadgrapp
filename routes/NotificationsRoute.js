@@ -3,18 +3,18 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import sharedRoutes, { sharedOptions } from './sharedRoutes';
 
 const NotificationsRoute = StackNavigator(
-    {
-        Notifications: {
-            screen: NotificationsScreen,
-            navigationOptions: () => ({
-                headerTitle: 'Notifications'
-            })
-        },
-        ...sharedRoutes
+  {
+    Notifications: {
+      screen: NotificationsScreen,
+      navigationOptions: () => ({
+        headerTitle: 'Notifications'
+      })
     },
-    {
-        ...sharedOptions
-    }
+    ...sharedRoutes
+  },
+  {
+    ...sharedOptions
+  }
 );
 
 export default NotificationsRoute;

@@ -9,81 +9,81 @@ const CANCEL_INDEX = 0;
 const DESTRUCTIVE_INDEX = 1;
 
 class Container extends Component {
-    static propTypes = {
-        profileObject: PropTypes.object.isRequired,
-        refresh: PropTypes.func.isRequired,
-        logOut: PropTypes.func.isRequired
-    };
+  static propTypes = {
+    profileObject: PropTypes.object.isRequired,
+    refresh: PropTypes.func.isRequired,
+    logOut: PropTypes.func.isRequired
+  };
 
-    state = {
-        isFetching: true,
-        mode: 'grid'
-    };
+  state = {
+    isFetching: true,
+    mode: 'grid'
+  };
 
-    componentDidMount = () => {
-        const { profileObject } = this.props;
-        if (profileObject) {
-            this.setState({
-                isFetching: false
-            });
-        }
-    };
-
-    componentWillReceiveProps = nextProps => {
-        if (nextProps.profileObject) {
-            this.setState({
-                isFetching: false
-            });
-        }
-    };
-
-    render() {
-        const { isFetching } = this.state;
-        return (
-            <View style={{ flex: 1 }}>
-                <Profile
-                    {...this.props}
-                    {...this.state}
-                    changeToGrid={this._changeToGrid}
-                    changeToList={this._changeToList}
-                    showActionSheet={this._showActionSheet}
-                />
-                <ActionSheet
-                    ref={actionSheet => (this.actionSheet = actionSheet)}
-                    options={options}
-                    cancelButtonIndex={CANCEL_INDEX}
-                    destructiveButtonIndex={DESTRUCTIVE_INDEX}
-                    onPress={this._handleSheetPress}
-                />
-            </View>
-        );
+  componentDidMount = () => {
+    const { profileObject } = this.props;
+    if (profileObject) {
+      this.setState({
+        isFetching: false
+      });
     }
+  };
 
-    _changeToList = () => {
-        this.setState({
-            mode: 'list'
-        });
-    };
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.profileObject) {
+      this.setState({
+        isFetching: false
+      });
+    }
+  };
 
-    _changeToGrid = () => {
-        this.setState({
-            mode: 'grid'
-        });
-    };
+  render() {
+    const { isFetching } = this.state;
+    return (
+      <View style={{ flex: 1 }}>
+        <Profile
+          {...this.props}
+          {...this.state}
+          changeToGrid={this._changeToGrid}
+          changeToList={this._changeToList}
+          showActionSheet={this._showActionSheet}
+        />
+        <ActionSheet
+          ref={actionSheet => (this.actionSheet = actionSheet)}
+          options={options}
+          cancelButtonIndex={CANCEL_INDEX}
+          destructiveButtonIndex={DESTRUCTIVE_INDEX}
+          onPress={this._handleSheetPress}
+        />
+      </View>
+    );
+  }
 
-    _showActionSheet = () => {
-        const { profileObject: { is_self } } = this.props;
-        if (is_self) {
-            this.actionSheet.show();
-        }
-    };
+  _changeToList = () => {
+    this.setState({
+      mode: 'list'
+    });
+  };
 
-    _handleSheetPress = index => {
-        const { logOut } = this.props;
-        if (index === 1) {
-            logOut();
-        }
-    };
+  _changeToGrid = () => {
+    this.setState({
+      mode: 'grid'
+    });
+  };
+
+  _showActionSheet = () => {
+    const { profileObject: { is_self } } = this.props;
+    if (is_self) {
+      this.actionSheet.show();
+    }
+  };
+
+  _handleSheetPress = index => {
+    const { logOut } = this.props;
+    if (index === 1) {
+      logOut();
+    }
+  };
 }
 
 export default Container;

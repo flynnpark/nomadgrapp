@@ -8,19 +8,19 @@ import photos from './modules/photos';
 const middlewares = [thunk];
 
 const persistConfig = {
-    key: 'root',
-    storage
+  key: 'root',
+  storage
 };
 
 const reducer = persistCombineReducers(persistConfig, {
-    user,
-    photos
+  user,
+  photos
 });
 
 const configureStore = () => {
-    let store = createStore(reducer, applyMiddleware(...middlewares));
-    let persistor = persistStore(store);
-    return { store, persistor };
+  let store = createStore(reducer, applyMiddleware(...middlewares));
+  let persistor = persistStore(store);
+  return { store, persistor };
 };
 
 export default configureStore;

@@ -3,15 +3,15 @@ import FeedScreen from '../screens/FeedScreen';
 import sharedRoutes, { sharedOptions } from './sharedRoutes';
 
 const HomeRoute = StackNavigator(
-    {
-        Home: {
-            screen: FeedScreen
-        },
-        ...sharedRoutes
+  {
+    Home: {
+      screen: FeedScreen
     },
-    {
-        ...sharedOptions
-    }
+    ...sharedRoutes
+  },
+  {
+    ...sharedOptions
+  }
 );
 
 export default HomeRoute;

@@ -3,18 +3,18 @@ import ProfileScreen from '../screens/ProfileScreen';
 import sharedRoutes, { sharedOptions } from './sharedRoutes';
 
 const ProfileRoute = StackNavigator(
-    {
-        Profile: {
-            screen: ProfileScreen,
-            navigationOptions: ({ screenProps }) => ({
-                headerTitle: screenProps.username
-            })
-        },
-        ...sharedRoutes
+  {
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: ({ screenProps }) => ({
+        headerTitle: screenProps.username
+      })
     },
-    {
-        ...sharedOptions
-    }
+    ...sharedRoutes
+  },
+  {
+    ...sharedOptions
+  }
 );
 
 export default ProfileRoute;
